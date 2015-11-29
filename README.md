@@ -37,10 +37,6 @@ Make a copy of the example config file:
 
 `cp src/config/config_example.py src/config/config.py`
 
-Make a copy of the example globals file:
-
-`cp globals_example.py globals.py`
-
 Then modify your twitchalerts app's info to reflect your registered app.
 Make sure to bookmark the page for your twitchalerts app so you don't lose this
 information. To register an app, go to:
