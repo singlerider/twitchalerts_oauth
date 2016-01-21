@@ -4,7 +4,6 @@ from flask import Flask, request, redirect, session, url_for
 from flask.json import jsonify
 from config import *
 import os
-import os
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
 app = Flask(__name__)
