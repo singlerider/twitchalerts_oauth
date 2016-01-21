@@ -47,40 +47,11 @@ And have their documentation open as a resource:
 
 https://twitchalerts.readme.io/docs/getting-started
 
-### MySQL Installation
+For testing, I recommend setting your `redirect_uri` to something like:
 
-Depending on your distribution, starting the server will be different, on a mac,
-this is accomplished by doing:
+http://127.0.0.1:8080/twitchalerts/authorized
 
-`brew install mysql`
-
-`mysql.server start`
-
-From here, you need to enter the mysql console as root:
-
-`mysql -u root`
-
-Create your database and name it whatever you want:
-
-`CREATE DATABASE databasename;`
-
-Create a user that you will use to connect with the database with (you do not
-want to connect as root for security reasons) - replace "newuser" and
-"password" with whatever you'd like:
-
-`CREATE USER 'newuser'@'localhost' IDENTIFIED BY 'password';`
-
-Grant the appropriate privileges for your databases(s) to your new user:
-
-`GRANT ALL PRIVILEGES ON * . * TO 'newuser'@'localhost';`
-
-Exit out of the console with:
-
-`\q`
-
-Create your schema from my blank template:
-
-`mysql -u newuser -ppassword* databasename < schema.sql`
+Make sure this matches in your TwitchAlerts app settings and in `config.py`!
 
 ## Finally
 
@@ -90,12 +61,8 @@ Create your schema from my blank template:
 
 ## Authorization
 
-Head to http://127.0.0.1:8080/authorize to see an authorization page for
+Head to http://127.0.0.1:8080/twitchalerts/authorize to see an authorization page for
 the app.
 
 From their, once approved, you'll see a returned access token, assuming all the
-provided information from your app (and the uri redirect) are correct.
-
-After you have this much, I'll leave it up to you to decide how you'll want
-to store the tokens. I'm using MySQL here to interact with my own separate
-application directly.
+provided information from your app (and the `redirect_uri`) are correct.
