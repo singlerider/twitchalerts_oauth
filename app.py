@@ -1,9 +1,10 @@
 #!/usr/bin/env python2.7
-from requests_oauthlib import OAuth2Session
-from flask import Flask, request, redirect, session, url_for
-from flask.json import jsonify
-from config import *
 import os
+from config import client_id, client_secret, mysql_credentials, redirect_uri
+
+from flask import Flask, redirect, request, session
+from requests_oauthlib import OAuth2Session
+
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
 app = Flask(__name__)
@@ -25,8 +26,10 @@ def authorize():
     Redirect the user/resource owner to the OAuth provider (i.e. Github)
     using an URL with a few key OAuth parameters.
     """
-    twitchalerts = OAuth2Session(client_id, scope=scope, redirect_uri=redirect_uri)
-    authorization_url, state = twitchalerts.authorization_url(authorization_base_url)
+    twitchalerts = OAuth2Session(
+        client_id, scope=scope, redirect_uri=redirect_uri)
+    authorization_url, state = twitchalerts.authorization_url(
+        authorization_base_url)
     # State is used to prevent CSRF, keep this for later.
     session['oauth_state'] = state
     return redirect(authorization_url)
@@ -50,6 +53,7 @@ def authorized():
     params = {'access_token': token['access_token'], 'limit': 100}
     data = twitchalerts.get(
         'https://www.twitchalerts.com/api/v1.0/donations', params=params)
+    print(data)
     return str(token["access_token"])
 
 
