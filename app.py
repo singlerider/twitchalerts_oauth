@@ -50,6 +50,12 @@ def authorized():
         client_id, redirect_uri=redirect_uri)  # state=session['oauth_state']
     token = twitchalerts.fetch_token(
         token_url, client_secret=client_secret, code=code)
+    """ Here is an example of cURL snippet for obtaining an access_token
+    This will pass everything as Form Data
+    curl  \
+        -X POST -F 'grant_type=authorization_code' -F 'client_id=YOUR_CLIENT_ID' -F 'client_secret=YOUR_CLIENT_SECRET' -F 'redirect_uri=YOUR_REDIRECT_URI' -F  'code=YOUR_CODE' \
+        https://www.twitchalerts.com/api/v1.0/token
+    """
     params = {'access_token': token['access_token'], 'limit': 100}
     data = twitchalerts.get(
         'https://www.twitchalerts.com/api/v1.0/donations', params=params)
